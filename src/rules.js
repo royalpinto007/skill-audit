@@ -48,6 +48,42 @@ export const RULES = [
     remediation: "A skill should run on demand, not command the agent to always/automatically execute things.",
     pattern: /(always|automatically|on\s+every\s+(message|turn|request))\s+(run|execute|invoke|call)\b/gi },
 
+  // ---- Dangerous shell ----
+  { id: "SKILL-SH-001", severity: "critical", category: "dangerous-shell", appliesTo: "code",
+    title: "Recursive force-delete of a broad path",
+    remediation: "rm -rf against /, $HOME, or ~ can wipe a machine. Never ship this in a skill.",
+    pattern: /\brm\s+-[a-z]*[rf][a-z]*\s+[^\n]*(\s\/(\s|$)|\s~(\/|\s|$)|\$HOME|\/\*)/gi },
+
+  { id: "SKILL-SH-002", severity: "critical", category: "dangerous-shell", appliesTo: "code",
+    title: "Pipe a download straight into a shell",
+    remediation: "curl|sh / wget|bash runs unreviewed remote code. Download, inspect, then run.",
+    pattern: /(curl|wget)\b[^\n|]*\|\s*(sudo\s+)?(sh|bash|zsh|python[0-9.]*|node)\b/gi },
+
+  { id: "SKILL-SH-003", severity: "medium", category: "dangerous-shell", appliesTo: "code",
+    title: "Privilege escalation via sudo",
+    remediation: "A skill running sudo can change the whole system. Confirm it is truly required.",
+    pattern: /(^|[\s;&|(])sudo\s+/gm },
+
+  { id: "SKILL-SH-004", severity: "critical", category: "dangerous-shell", appliesTo: "code",
+    title: "Fork bomb",
+    remediation: "This pattern exhausts the process table and hangs the machine.",
+    pattern: /:\s*\(\s*\)\s*\{\s*:\s*\|\s*:\s*&\s*\}\s*;\s*:/g },
+
+  { id: "SKILL-SH-005", severity: "high", category: "dangerous-shell", appliesTo: "code",
+    title: "World-writable permissions (chmod 777)",
+    remediation: "chmod 777 removes all access control on the target. Use least privilege.",
+    pattern: /\bchmod\s+(-R\s+)?0?777\b/gi },
+
+  { id: "SKILL-SH-006", severity: "critical", category: "dangerous-shell", appliesTo: "code",
+    title: "Raw disk / device write",
+    remediation: "dd, mkfs, or writing to /dev/sd* can destroy data irreversibly.",
+    pattern: /(\bdd\s+if=|\bmkfs\b|>\s*\/dev\/(sd|nvme|disk))/gi },
+
+  { id: "SKILL-SH-007", severity: "high", category: "dangerous-shell", appliesTo: "code",
+    title: "Reverse shell / raw TCP",
+    remediation: "nc -e, /dev/tcp, or bash -i piped to a socket opens a backdoor.",
+    pattern: /(\bnc\b\s+[^\n]*-e|\/dev\/tcp\/|bash\s+-i\b[^\n]*(>&|\|))/gi },
+
 
 ];
 
