@@ -84,6 +84,27 @@ export const RULES = [
     remediation: "nc -e, /dev/tcp, or bash -i piped to a socket opens a backdoor.",
     pattern: /(\bnc\b\s+[^\n]*-e|\/dev\/tcp\/|bash\s+-i\b[^\n]*(>&|\|))/gi },
 
+  // ---- Secrets & credentials ----
+  { id: "SKILL-SEC-001", severity: "high", category: "secret-access", appliesTo: "any",
+    title: "Reads SSH / private keys",
+    remediation: "Accessing id_rsa, .pem, or ~/.ssh is rarely legitimate for a skill.",
+    pattern: /(\.ssh\/id_[a-z0-9]+|\bid_rsa\b|-----BEGIN\s+[A-Z ]*PRIVATE\s+KEY-----|\.pem\b)/gi },
+
+  { id: "SKILL-SEC-002", severity: "high", category: "secret-access", appliesTo: "any",
+    title: "Reads cloud / package credential files",
+    remediation: "~/.aws/credentials, .npmrc, .netrc, .git-credentials hold live secrets.",
+    pattern: /(\.aws\/credentials|\.docker\/config\.json|\.npmrc\b|\.git-credentials|\.netrc\b|\.kube\/config)/gi },
+
+  { id: "SKILL-SEC-003", severity: "medium", category: "secret-access", appliesTo: "code",
+    title: "Dumps the full environment / dotenv",
+    remediation: "printenv, os.environ, or reading .env wholesale often precedes exfiltration.",
+    pattern: /(\bprintenv\b|os\.environ\b(?!\.get)|\bdotenv\b|(cat|source|read|open)\s+[^\n]*\.env\b)/gi },
+
+  { id: "SKILL-SEC-004", severity: "medium", category: "secret-access", appliesTo: "code",
+    title: "Accesses the OS keychain / secret store",
+    remediation: "Reading the keychain, keyring, or secret-tool exposes stored credentials.",
+    pattern: /(security\s+find-generic-password|gnome-keyring|\bsecret-tool\b|keychain)/gi },
+
 
 ];
 
