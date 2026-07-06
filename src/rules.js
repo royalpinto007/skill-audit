@@ -121,6 +121,17 @@ export const RULES = [
     remediation: "requests.post / fetch / axios.post to an external host can be a data sink. Confirm the endpoint.",
     pattern: /(requests\.post|urllib\.request|http\.client|fetch\s*\(|axios\.(post|put)|new\s+XMLHttpRequest)/gi },
 
+  // ---- Supply chain ----
+  { id: "SKILL-SUP-001", severity: "medium", category: "supply-chain", appliesTo: "code",
+    title: "Installs arbitrary packages at runtime",
+    remediation: "Runtime pip/npm/gem/cargo installs pull unpinned code onto the host. Pin and vet dependencies.",
+    pattern: /(pip[0-9]?\s+install|npm\s+i(nstall)?\b|pnpm\s+add|yarn\s+add|gem\s+install|go\s+install|cargo\s+install|npx\s+--yes)/gi },
+
+  { id: "SKILL-SUP-002", severity: "high", category: "supply-chain", appliesTo: "code",
+    title: "Clones and immediately executes a repo",
+    remediation: "git clone chained into sh/python/node runs unaudited third-party code.",
+    pattern: /git\s+clone\b[^\n]*&&[^\n]*(sh|bash|python[0-9.]*|node|make)\b/gi },
+
 
 ];
 
