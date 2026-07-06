@@ -105,6 +105,22 @@ export const RULES = [
     remediation: "Reading the keychain, keyring, or secret-tool exposes stored credentials.",
     pattern: /(security\s+find-generic-password|gnome-keyring|\bsecret-tool\b|keychain)/gi },
 
+  // ---- Network exfiltration ----
+  { id: "SKILL-NET-001", severity: "high", category: "exfiltration", appliesTo: "code",
+    title: "Uploads a local file over the network",
+    remediation: "curl --data @file / -T / upload-file sends local data out. Verify the destination.",
+    pattern: /(curl|wget)\b[^\n]*(--data(-binary)?|-d|-F|--form|--upload-file|-T)\s+[^\n]*@/gi },
+
+  { id: "SKILL-NET-002", severity: "high", category: "exfiltration", appliesTo: "any",
+    title: "Contacts a known exfiltration / paste host",
+    remediation: "webhook.site, requestbin, ngrok, pastebin, transfer.sh and raw IPs are common drop points.",
+    pattern: /(webhook\.site|requestbin\.|\.ngrok\.|pastebin\.com|transfer\.sh|0x0\.st|https?:\/\/(\d{1,3}\.){3}\d{1,3})/gi },
+
+  { id: "SKILL-NET-003", severity: "medium", category: "exfiltration", appliesTo: "code",
+    title: "Programmatic outbound POST",
+    remediation: "requests.post / fetch / axios.post to an external host can be a data sink. Confirm the endpoint.",
+    pattern: /(requests\.post|urllib\.request|http\.client|fetch\s*\(|axios\.(post|put)|new\s+XMLHttpRequest)/gi },
+
 
 ];
 
