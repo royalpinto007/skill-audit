@@ -132,6 +132,17 @@ export const RULES = [
     remediation: "git clone chained into sh/python/node runs unaudited third-party code.",
     pattern: /git\s+clone\b[^\n]*&&[^\n]*(sh|bash|python[0-9.]*|node|make)\b/gi },
 
+  // ---- Obfuscation ----
+  { id: "SKILL-OBF-001", severity: "critical", category: "obfuscation", appliesTo: "code",
+    title: "Decodes and executes base64",
+    remediation: "base64 -d | sh, eval(atob(...)), or b64decode+exec hides the real payload. Never run.",
+    pattern: /(base64\s+(-d|--decode)|atob\s*\(|b64decode|base64\.b64decode)[^\n]{0,60}(\||;|&&|\)\s*)?[^\n]{0,20}(sh|bash|eval|exec|system)/gi },
+
+  { id: "SKILL-OBF-002", severity: "medium", category: "obfuscation", appliesTo: "code",
+    title: "Large embedded base64 blob",
+    remediation: "A long base64 string in a skill often hides code or data. Decode and inspect it.",
+    detect: (t) => matchesOf(t, /[A-Za-z0-9+/]{240,}={0,2}/g) },
+
 
 ];
 
