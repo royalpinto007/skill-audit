@@ -149,6 +149,21 @@ export const RULES = [
     remediation: "A skill granting itself every tool ('allowed-tools: *') violates least privilege.",
     pattern: /allowed[-_ ]?tools?\s*[:=]\s*["'\[]?\s*\*/gi },
 
+  // ---- Instructions concealed in HTML comments (invisible in rendered markdown) ----
+  { id: "SKILL-INJ-008", severity: "high", category: "prompt-injection", appliesTo: "prose",
+    title: "Imperative instruction hidden in an HTML comment",
+    remediation: "Comments are invisible when the markdown renders; attackers hide agent instructions there. Remove them.",
+    detect: (t) => {
+      const out = [];
+      const re = /<!--([\s\S]*?)-->/g;
+      let m;
+      while ((m = re.exec(t)) !== null) {
+        if (/(ignore|run|execute|send|exfiltrate|do\s*not\s+tell|password|secret|token|curl|bash)/i.test(m[1]))
+          out.push({ index: m.index, match: m[0].slice(0, 60) });
+      }
+      return out;
+    } },
+
 
 ];
 
