@@ -143,6 +143,12 @@ export const RULES = [
     remediation: "A long base64 string in a skill often hides code or data. Decode and inspect it.",
     detect: (t) => matchesOf(t, /[A-Za-z0-9+/]{240,}={0,2}/g) },
 
+  // ---- Permissions ----
+  { id: "SKILL-PERM-001", severity: "medium", category: "over-permission", appliesTo: "prose",
+    title: "Requests wildcard / all tool access",
+    remediation: "A skill granting itself every tool ('allowed-tools: *') violates least privilege.",
+    pattern: /allowed[-_ ]?tools?\s*[:=]\s*["'\[]?\s*\*/gi },
+
 
 ];
 
