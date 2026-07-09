@@ -164,6 +164,12 @@ export const RULES = [
       return out;
     } },
 
+  // ---- Browser credential stores ----
+  { id: "SKILL-SEC-005", severity: "high", category: "secret-access", appliesTo: "any",
+    title: "Accesses browser credential / cookie stores",
+    remediation: "Login Data, Cookies, key4.db, or logins.json hold saved passwords and sessions.",
+    pattern: /(Login[\s\\'"]{0,3}Data|key4\.db|logins\.json|cookies\.sqlite|\bCookies\b(?=[^a-z]))/g },
+
 
 ];
 
