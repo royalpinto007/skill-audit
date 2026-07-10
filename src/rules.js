@@ -176,6 +176,12 @@ export const RULES = [
     remediation: "Writing to crontab, ~/.bashrc, LaunchAgents, or systemd makes the code re-run later. Rarely legitimate in a skill.",
     pattern: /(crontab\s+-|>>?\s*~?\/?\.(bashrc|zshrc|profile|bash_profile)|LaunchAgents|systemctl\s+(--user\s+)?enable)/g },
 
+  // ---- Anti-forensics ----
+  { id: "SKILL-SH-009", severity: "high", category: "anti-forensics", appliesTo: "code",
+    title: "Clears shell history / covers tracks",
+    remediation: "history -c, unset HISTFILE, or truncating .bash_history is used to hide what was run.",
+    pattern: /(history\s+-c\b|unset\s+HISTFILE|>\s*~?\/?\.bash_history)/g },
+
 
 ];
 
