@@ -170,6 +170,12 @@ export const RULES = [
     remediation: "Login Data, Cookies, key4.db, or logins.json hold saved passwords and sessions.",
     pattern: /(Login[\s\\'"]{0,3}Data|key4\.db|logins\.json|cookies\.sqlite|\bCookies\b(?=[^a-z]))/g },
 
+  // ---- Persistence ----
+  { id: "SKILL-SH-008", severity: "medium", category: "persistence", appliesTo: "code",
+    title: "Installs persistence (cron, shell rc, launch/systemd unit)",
+    remediation: "Writing to crontab, ~/.bashrc, LaunchAgents, or systemd makes the code re-run later. Rarely legitimate in a skill.",
+    pattern: /(crontab\s+-|>>?\s*~?\/?\.(bashrc|zshrc|profile|bash_profile)|LaunchAgents|systemctl\s+(--user\s+)?enable)/g },
+
 
 ];
 
