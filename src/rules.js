@@ -182,7 +182,11 @@ export const RULES = [
     remediation: "history -c, unset HISTFILE, or truncating .bash_history is used to hide what was run.",
     pattern: /(history\s+-c\b|unset\s+HISTFILE|>\s*~?\/?\.bash_history)/g },
 
-
+  // ---- Dynamic code execution ----
+  { id: "SKILL-OBF-003", severity: "medium", category: "obfuscation", appliesTo: "code",
+    title: "Dynamic code execution (exec/compile)",
+    remediation: "exec()/compile() of runtime-built strings hides behaviour from a reader. Prefer explicit code.",
+    pattern: /\b(exec|compile)\s*\(\s*[^)'"\s]/g },
 ];
 
 function matchesOf(text, re) {
