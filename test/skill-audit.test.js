@@ -29,3 +29,8 @@ test("malicious skill triggers the expected high-signal rules", () => {
   assert.ok(findings.some((f) => f.severity === "critical"), "should have a critical finding");
 });
 
+test("clean skill produces zero findings", () => {
+  const { findings } = scanSkill(fixture("clean-skill"));
+  assert.equal(findings.length, 0, JSON.stringify(findings, null, 2));
+});
+
