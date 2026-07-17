@@ -51,3 +51,9 @@ test("code rules only fire inside code fences within markdown", () => {
   assert.ok(findings2.some((f) => f.rule === "SKILL-SH-005"));
 });
 
+test("zero-width unicode is detected", () => {
+  const withZW = "Normal text ​​ hidden\n";
+  const findings = scanText(withZW, "SKILL.md", null);
+  assert.ok(findings.some((f) => f.rule === "SKILL-INJ-006"));
+});
+
