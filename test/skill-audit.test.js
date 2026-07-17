@@ -41,3 +41,13 @@ test("prose rules do not fire inside markdown code fences", () => {
     "instruction-override in a code comment should not be flagged as prose");
 });
 
+test("code rules only fire inside code fences within markdown", () => {
+  const prose = "Please be careful with chmod 777 in general.\n";
+  const findings = scanText(prose, "SKILL.md", null);
+  assert.ok(!findings.some((f) => f.rule === "SKILL-SH-005"),
+    "chmod 777 mentioned in prose (no code fence) should not fire");
+  const fenced = "```sh\nchmod 777 /tmp/x\n```\n";
+  const findings2 = scanText(fenced, "SKILL.md", null);
+  assert.ok(findings2.some((f) => f.rule === "SKILL-SH-005"));
+});
+
