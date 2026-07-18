@@ -57,3 +57,10 @@ test("zero-width unicode is detected", () => {
   assert.ok(findings.some((f) => f.rule === "SKILL-INJ-006"));
 });
 
+test("exit code respects --fail-on threshold", () => {
+  const findings = [{ severity: "medium" }, { severity: "low" }];
+  assert.equal(exitCode(findings, "high"), 0);
+  assert.equal(exitCode(findings, "medium"), 1);
+  assert.equal(exitCode([], "info"), 0);
+});
+
