@@ -64,3 +64,14 @@ test("exit code respects --fail-on threshold", () => {
   assert.equal(exitCode([], "info"), 0);
 });
 
+test("sarif and json output are valid and well-formed", () => {
+  const result = scanSkill(fixture("malicious-skill"));
+  const sarif = JSON.parse(sarifReport(result));
+  assert.equal(sarif.version, "2.1.0");
+  assert.equal(sarif.runs[0].tool.driver.name, "skill-audit");
+  assert.ok(sarif.runs[0].results.length > 0);
+  const j = JSON.parse(jsonReport(result));
+  assert.equal(j.tool, "skill-audit");
+  assert.ok(j.findings.length > 0);
+});
+
