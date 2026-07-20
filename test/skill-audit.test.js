@@ -75,3 +75,13 @@ test("sarif and json output are valid and well-formed", () => {
   assert.ok(j.findings.length > 0);
 });
 
+test("every rule has the required fields and a matcher", () => {
+  for (const r of RULES) {
+    assert.ok(r.id && r.severity && r.category && r.title && r.remediation, `rule missing fields: ${r.id}`);
+    assert.ok(r.pattern || r.detect, `rule ${r.id} has no matcher`);
+    assert.ok(["prose", "code", "any"].includes(r.appliesTo), `rule ${r.id} bad appliesTo`);
+  }
+  const ids = RULES.map((r) => r.id);
+  assert.equal(new Set(ids).size, ids.length, "duplicate rule ids");
+});
+
