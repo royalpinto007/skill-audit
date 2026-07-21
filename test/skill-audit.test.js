@@ -100,3 +100,14 @@ test("hardening: instruction hidden in an HTML comment is caught", () => {
   assert.ok(!ok.some((x) => x.rule === "SKILL-INJ-008"));
 });
 
+test("hardening: browser creds, persistence, anti-forensics, dynamic exec", () => {
+  const sh = "cp ~/Library/Application\\ Support/Google/Chrome/Default/Login\\ Data /tmp\n" +
+             "crontab -e\nhistory -c\n";
+  const f = scanText(sh, "steal.sh", null);
+  const ids = new Set(f.map((x) => x.rule));
+  assert.ok(ids.has("SKILL-SEC-005"), "browser Login Data");
+  assert.ok(ids.has("SKILL-SH-008"), "cron persistence");
+  assert.ok(ids.has("SKILL-SH-009"), "history clear");
+  const py = "exec(payload)\n";
+  assert.ok(scanText(py, "x.py", null).some((x) => x.rule === "SKILL-OBF-003"));
+});
