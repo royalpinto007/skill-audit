@@ -16,3 +16,19 @@ Agent **skills** are the new plugin. A skill is a `SKILL.md` plus scripts that a
 
 `skill-audit` is `npm audit` for skills. Point it at a skill and it flags the patterns that should stop you from installing it.
 
+## What it catches
+
+| Category | Examples |
+| --- | --- |
+| **Prompt injection** | "ignore all previous instructions", "do not tell the user", "act without confirmation", disable/bypass safety, stated intent to exfiltrate |
+| **Dangerous shell** | `rm -rf ~`, `curl \| bash`, fork bombs, `chmod 777`, `dd`/`mkfs`, reverse shells |
+| **Secret access** | reads `~/.ssh/id_rsa`, `~/.aws/credentials`, `.npmrc`, `.netrc`, dumps the environment, hits the keychain |
+| **Exfiltration** | uploads local files, contacts `webhook.site` / `pastebin` / ngrok / raw IPs, programmatic outbound POST |
+| **Supply chain** | runtime `pip`/`npm` installs, `git clone && run` |
+| **Obfuscation** | `base64 -d \| sh`, large base64 blobs, hidden zero-width / bidi Unicode |
+| **Over-permission** | `allowed-tools: *` |
+
+It reads `SKILL.md` **prose** for instruction-injection and reads **scripts and fenced code blocks** for dangerous commands — so a `chmod 777` mentioned in a sentence won't false-positive, but the same command in a code block will.
+
+See every rule: `npx @royalpinto007/skill-audit --rules`.
+
