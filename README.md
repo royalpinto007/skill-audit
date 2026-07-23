@@ -32,3 +32,30 @@ It reads `SKILL.md` **prose** for instruction-injection and reads **scripts and 
 
 See every rule: `npx @royalpinto007/skill-audit --rules`.
 
+## Usage
+
+```bash
+npx @royalpinto007/skill-audit <path> [options]
+
+# scan a skill directory
+npx @royalpinto007/skill-audit ~/.claude/skills/some-skill
+
+# fail CI on anything medium or worse
+npx @royalpinto007/skill-audit ./my-skill --fail-on medium
+
+# machine-readable output
+npx @royalpinto007/skill-audit ./my-skill --format json
+npx @royalpinto007/skill-audit ./my-skill --format sarif > skill-audit.sarif
+```
+
+**Options**
+
+| Flag | Default | Meaning |
+| --- | --- | --- |
+| `--format <text\|json\|sarif>` | `text` | output format |
+| `--fail-on <severity>` | `high` | exit `1` if any finding is at or above this severity |
+| `--rules` | | list every rule and exit |
+| `-h, --help` / `-v, --version` | | |
+
+**Exit codes:** `0` clean (below threshold) · `1` findings at/above `--fail-on` · `2` bad usage.
+
