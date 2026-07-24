@@ -59,3 +59,28 @@ npx @royalpinto007/skill-audit ./my-skill --format sarif > skill-audit.sarif
 
 **Exit codes:** `0` clean (below threshold) · `1` findings at/above `--fail-on` · `2` bad usage.
 
+## In CI (GitHub Action)
+
+One line — drop it into any workflow. It gates the job and can upload findings to the Security tab:
+
+```yaml
+name: skill-audit
+on: [pull_request]
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: royalpinto007/skill-audit@v1
+        with:
+          path: ./skills          # default "."
+          fail-on: high           # critical|high|medium|low|info
+          sarif-file: skill-audit.sarif
+      - uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: skill-audit.sarif
+```
+
+Prefer the raw CLI? `npx @royalpinto007/skill-audit ./skills --fail-on high` works the same in any pipeline.
+
