@@ -84,3 +84,9 @@ jobs:
 
 Prefer the raw CLI? `npx @royalpinto007/skill-audit ./skills --fail-on high` works the same in any pipeline.
 
+## What it is (and isn't)
+
+- It's a **fast static heuristic** — a first line of defense that catches the obvious and the sneaky-but-known. Green is not a proof of safety; **read skills you run.**
+- It has **no runtime dependencies** — a security tool shouldn't pull a supply chain of its own.
+- False positives are possible by design (it errs toward flagging). Tune with `--fail-on`.
+
