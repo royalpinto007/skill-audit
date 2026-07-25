@@ -90,3 +90,7 @@ Prefer the raw CLI? `npx @royalpinto007/skill-audit ./skills --fail-on high` wor
 - It has **no runtime dependencies** — a security tool shouldn't pull a supply chain of its own.
 - False positives are possible by design (it errs toward flagging). Tune with `--fail-on`.
 
+## Related
+
+Part of a small agent-security toolkit: [mcp-audit](https://github.com/royalpinto007/MCP-audit) (scan MCP servers), [injection-arena](https://github.com/royalpinto007/injection-arena) (learn prompt-injection defense), and the [awesome-llm-guardrails](https://github.com/royalpinto007/awesome-llm-guardrails) list.
+
