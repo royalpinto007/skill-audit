@@ -94,3 +94,6 @@ Prefer the raw CLI? `npx @royalpinto007/skill-audit ./skills --fail-on high` wor
 
 Part of a small agent-security toolkit: [mcp-audit](https://github.com/royalpinto007/MCP-audit) (scan MCP servers), [injection-arena](https://github.com/royalpinto007/injection-arena) (learn prompt-injection defense), and the [awesome-llm-guardrails](https://github.com/royalpinto007/awesome-llm-guardrails) list.
 
+## License
+
+MIT
