@@ -8,6 +8,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - run: node --test
-      - name: self-scan the malicious fixture
-        run: node bin/skill-audit.js test/fixtures/malicious-skill --format sarif | head -3
+      - name: Unit tests
+        run: node --test
+      - name: Clean fixture must pass the gate (exit 0)
+        run: node bin/skill-audit.js test/fixtures/clean-skill --fail-on high
+      - name: Malicious fixture must be flagged (exit 1)
+        run: |
+          if node bin/skill-audit.js test/fixtures/malicious-skill --fail-on high; then
+            echo "::error::malicious fixture was NOT flagged"; exit 1
+          else
+            echo "OK: malicious fixture correctly flagged"
+          fi
+      - name: SARIF output is produced
+        run: node bin/skill-audit.js test/fixtures/malicious-skill --format sarif | head -5
