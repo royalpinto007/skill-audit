@@ -1,0 +1,36 @@
+name: "skill-audit"
+description: "Scan agent skills for security risks: prompt-injection, dangerous shell, secret access, and exfiltration."
+author: "Royal Simpson Pinto"
+branding:
+  icon: "shield"
+  color: "red"
+
+inputs:
+  path:
+    description: "Path to a skill directory or SKILL.md to scan."
+    required: false
+    default: "."
+  fail-on:
+    description: "Severity that fails the job (critical|high|medium|low|info)."
+    required: false
+    default: "high"
+  format:
+    description: "Console output format (text|json|sarif)."
+    required: false
+    default: "text"
+  sarif-file:
+    description: "If set, also write a SARIF report to this path (does not affect pass/fail)."
+    required: false
+    default: ""
+
+runs:
+  using: "composite"
+  steps:
+    - shell: bash
+      run: |
+        BIN="node ${{ github.action_path }}/bin/skill-audit.js"
+        if [ -n "${{ inputs.sarif-file }}" ]; then
+          $BIN "${{ inputs.path }}" --format sarif > "${{ inputs.sarif-file }}" || true
+          echo "wrote SARIF to ${{ inputs.sarif-file }}"
+        fi
+        $BIN "${{ inputs.path }}" --format "${{ inputs.format }}" --fail-on "${{ inputs.fail-on }}"
