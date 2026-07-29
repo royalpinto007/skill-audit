@@ -7,6 +7,7 @@ npx @royalpinto007/skill-audit ./path-to-skill
 ```
 
 [![npm](https://img.shields.io/npm/v/@royalpinto007/skill-audit.svg)](https://www.npmjs.com/package/@royalpinto007/skill-audit) [![CI](https://github.com/royalpinto007/skill-audit/actions/workflows/ci.yml/badge.svg)](https://github.com/royalpinto007/skill-audit/actions) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+**npm:** https://www.npmjs.com/package/@royalpinto007/skill-audit  ·  **Source:** https://github.com/royalpinto007/Skill-audit
 
 ---
 
