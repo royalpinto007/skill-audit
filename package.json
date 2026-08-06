@@ -1,6 +1,6 @@
 {
-  "name": "@AgentPostmortem/Skill-audit",
-  "version": "0.1.0",
+  "name": "@royalpinto007/skill-audit",
+  "version": "0.1.1",
   "description": "Security scanner for agent skills. Scan a Claude/agent Skill for prompt-injection, dangerous shell, secret access, and exfiltration before you trust it. Zero dependencies, SARIF output, npx skill-audit <path>.",
   "type": "module",
   "bin": {
@@ -31,12 +31,15 @@
   ],
   "author": "Royal Simpson Pinto",
   "license": "MIT",
-  "homepage": "https://github.com/AgentPostmortem/Skill-audit",
+  "homepage": "https://github.com/AgentPostmortem/Skill-audit#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/AgentPostmortem/Skill-audit.git"
+    "url": "git+https://github.com/AgentPostmortem/Skill-audit.git"
   },
   "engines": {
     "node": ">=18"
+  },
+  "bugs": {
+    "url": "https://github.com/AgentPostmortem/Skill-audit/issues"
   }
 }

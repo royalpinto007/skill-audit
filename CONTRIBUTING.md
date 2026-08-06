@@ -12,7 +12,7 @@ npm test    # runs `node --test`, zero dependencies
 
 ## How to run it
 
-Run it locally with: `npx @AgentPostmortem/skill-audit ./some-skill`.
+Run it locally with: `npx @royalpinto007/skill-audit ./some-skill`.
 
 ## Ways to contribute
 

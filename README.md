@@ -3,11 +3,11 @@
 **A security scanner for agent skills.** Scan a Claude/agent Skill for prompt-injection, dangerous shell, secret access, and network exfiltration **before you trust it** — one command, zero dependencies, SARIF output for CI.
 
 ```bash
-npx @AgentPostmortem/skill-audit ./path-to-skill
+npx @royalpinto007/skill-audit ./path-to-skill
 ```
 
-[![npm](https://img.shields.io/npm/v/@AgentPostmortem/skill-audit.svg)](https://www.npmjs.com/package/@AgentPostmortem/skill-audit) [![CI](https://github.com/AgentPostmortem/skill-audit/actions/workflows/ci.yml/badge.svg)](https://github.com/AgentPostmortem/skill-audit/actions) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-**npm:** https://www.npmjs.com/package/@AgentPostmortem/skill-audit  ·  **Source:** https://github.com/AgentPostmortem/Skill-audit
+[![npm](https://img.shields.io/npm/v/@royalpinto007/skill-audit.svg)](https://www.npmjs.com/package/@royalpinto007/skill-audit) [![CI](https://github.com/AgentPostmortem/Skill-audit/actions/workflows/ci.yml/badge.svg)](https://github.com/AgentPostmortem/Skill-audit/actions) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+**npm:** https://www.npmjs.com/package/@royalpinto007/skill-audit  ·  **Source:** https://github.com/AgentPostmortem/Skill-audit
 
 ---
 
@@ -31,22 +31,22 @@ Agent **skills** are the new plugin. A skill is a `SKILL.md` plus scripts that a
 
 It reads `SKILL.md` **prose** for instruction-injection and reads **scripts and fenced code blocks** for dangerous commands — so a `chmod 777` mentioned in a sentence won't false-positive, but the same command in a code block will.
 
-See every rule: `npx @AgentPostmortem/skill-audit --rules`.
+See every rule: `npx @royalpinto007/skill-audit --rules`.
 
 ## Usage
 
 ```bash
-npx @AgentPostmortem/skill-audit <path> [options]
+npx @royalpinto007/skill-audit <path> [options]
 
 # scan a skill directory
-npx @AgentPostmortem/skill-audit ~/.claude/skills/some-skill
+npx @royalpinto007/skill-audit ~/.claude/skills/some-skill
 
 # fail CI on anything medium or worse
-npx @AgentPostmortem/skill-audit ./my-skill --fail-on medium
+npx @royalpinto007/skill-audit ./my-skill --fail-on medium
 
 # machine-readable output
-npx @AgentPostmortem/skill-audit ./my-skill --format json
-npx @AgentPostmortem/skill-audit ./my-skill --format sarif > skill-audit.sarif
+npx @royalpinto007/skill-audit ./my-skill --format json
+npx @royalpinto007/skill-audit ./my-skill --format sarif > skill-audit.sarif
 ```
 
 **Options**
@@ -83,7 +83,7 @@ jobs:
           sarif_file: skill-audit.sarif
 ```
 
-Prefer the raw CLI? `npx @AgentPostmortem/skill-audit ./skills --fail-on high` works the same in any pipeline.
+Prefer the raw CLI? `npx @royalpinto007/skill-audit ./skills --fail-on high` works the same in any pipeline.
 
 ## What it is (and isn't)
 
