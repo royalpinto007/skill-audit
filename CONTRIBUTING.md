@@ -5,14 +5,14 @@ Thanks for helping improve **Skill-audit**. Bug reports, fixes, and features are
 ## Getting set up
 
 ```bash
-git clone https://github.com/royalpinto007/Skill-audit
+git clone https://github.com/AgentPostmortem/Skill-audit
 cd Skill-audit
 npm test    # runs `node --test`, zero dependencies
 ```
 
 ## How to run it
 
-Run it locally with: `npx @royalpinto007/skill-audit ./some-skill`.
+Run it locally with: `npx @AgentPostmortem/skill-audit ./some-skill`.
 
 ## Ways to contribute
 

@@ -79,7 +79,7 @@ export function sarifReport(result) {
     $schema: "https://json.schemastore.org/sarif-2.1.0.json",
     version: "2.1.0",
     runs: [{
-      tool: { driver: { name: "skill-audit", informationUri: "https://github.com/royalpinto007/skill-audit", rules } },
+      tool: { driver: { name: "skill-audit", informationUri: "https://github.com/AgentPostmortem/skill-audit", rules } },
       results,
     }],
   }, null, 2);
